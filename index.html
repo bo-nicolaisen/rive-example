@@ -8,19 +8,50 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Rive thermometer</title>
     <meta name="description" content="">
   
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/assets/css/site.css">
+    <!--
+        Rive-runtime hentes fra et CDN (unpkg.com). Den giver os variablen "rive".
+        Versionen (2.44.2) er låst, så siden ikke pludselig går i stykker når
+        Rive udgiver en ny version.
+
+        "defer" betyder: hent scriptet nu, men kør det først når HTML'en er læst
+        færdig. Scripts med defer kører i den rækkefølge de står – derfor skal
+        Rive stå FØR vores egen site.js, som bruger den.
+    -->
+    <script src="https://unpkg.com/@rive-app/canvas@2.44.2/rive.js" defer></script>
     <script src="assets/js/site.js" defer></script>
 </head>
 
 <body>
+    <main class="therm">
+        <!--
+            <canvas> er en tom tegneflade. Rive tegner termometeret herpå.
+            id'et bruges i site.js til at finde elementet.
+        -->
+        <canvas id="therm-canvas" width="500" height="500"></canvas>
 
+        <!--
+            Slideren styrer termometerets højde.
+            min/max (0–247) passer til rektanglets højde i pixels inde i Rive-filen.
+            value="247" er startværdien (fuldt termometer).
 
+            <output> er et HTML-element beregnet til at vise et resultat –
+            her viser det tallet slideren står på.
 
+            Når slideren ligger inde i <label>, kan man klikke på teksten
+            "Gauge height" for at vælge slideren (godt for tilgængelighed).
+        -->
+        <label class="therm__control" for="gauge-slider">
+            Gauge height
+            <input type="range" id="gauge-slider" min="0" max="247" value="247">
+            <output id="gauge-value" for="gauge-slider">247</output>
+        </label>
+    </main>
 </body>
 
 </html>

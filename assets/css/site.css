@@ -1,0 +1,59 @@
+/* ------------------------------------------------------------
+   Siden: mørk baggrund, og alt indhold centreret midt på skærmen.
+   display: grid + place-items: center er den korteste måde at
+   centrere noget både vandret og lodret.
+   min-height: 100vh = mindst lige så høj som browservinduet.
+   ------------------------------------------------------------ */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #1e1e1e;
+  color: #eee;
+  font-family: system-ui, sans-serif;
+}
+
+/* Termometer og slider stables lodret (flex-direction: column)
+   med lidt luft imellem (gap). */
+.therm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ------------------------------------------------------------
+   Canvas'et:
+   width/height-attributterne i HTML (500) er tegnefladens STØRRELSE.
+   CSS bestemmer hvor STORT det VISES.
+   min(500px, 90vw) = 500px, men aldrig bredere end 90 % af skærmen
+   (så det også virker på mobil).
+   aspect-ratio: 1 holder det kvadratisk.
+   ------------------------------------------------------------ */
+#therm-canvas {
+  width: min(500px, 90vw);
+  aspect-ratio: 1;
+}
+
+/* Tekst, slider og tal på én række */
+.therm__control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* accent-color farver slideren i browserens standard-stil –
+   her rød, så den matcher termometeret. */
+.therm__control input {
+  width: 250px;
+  accent-color: #ff0000;
+}
+
+/* tabular-nums: alle cifre er lige brede, så tallet ikke
+   "hopper" når det skifter fx fra 99 til 100.
+   min-width: 3ch = plads til 3 tegn. */
+.therm__control output {
+  min-width: 3ch;
+  font-variant-numeric: tabular-nums;
+}
